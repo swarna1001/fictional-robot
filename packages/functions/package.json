@@ -1,0 +1,21 @@
+{
+  "name": "@@@app/functions",
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "test": "sst bind vitest",
+    "typecheck": "tsc -noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^20.4.8",
+    "@types/aws-lambda": "^8.10.119",
+    "vitest": "^0.34.1",
+    "sst": "^2.23.6"
+  },
+  "dependencies": {
+    "@planetscale/database": "^1.7.0",
+    "drizzle-orm": "^0.26.0",
+    "fetch-h2": "^3.0.2",
+    "mysql2": "^2.3.3"
+  }
+}

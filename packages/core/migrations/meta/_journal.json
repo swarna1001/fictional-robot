@@ -1,0 +1,41 @@
+{
+  "version": "5",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1691409844075,
+      "tag": "0000_wet_ben_parker",
+      "breakpoints": false
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1691410642003,
+      "tag": "0001_clumsy_warlock",
+      "breakpoints": false
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1691416680484,
+      "tag": "0002_naive_molecule_man",
+      "breakpoints": false
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1691417238011,
+      "tag": "0003_lyrical_frog_thor",
+      "breakpoints": false
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1691417409948,
+      "tag": "0004_purple_quicksilver",
+      "breakpoints": false
+    }
+  ]
+}

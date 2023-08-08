@@ -1,0 +1,23 @@
+{
+  "name": "@@@app/core",
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "test": "sst bind vitest",
+    "typecheck": "tsc -noEmit",
+    "migrate": "drizzle-kit generate:mysql",
+    "drop": "drizzle-kit drop"
+  },
+  "devDependencies": {
+    "vitest": "^0.34.1",
+    "@types/node": "^20.4.8",
+    "sst": "^2.23.6",
+    "drizzle-kit": "^0.18.1"
+  },
+  "dependencies": {
+    "@planetscale/database": "^1.7.0",
+    "drizzle-orm": "^0.26.5",
+    "mysql2": "^2.3.3",
+    "planetscale-node": "^0.3.0"
+  }
+}
