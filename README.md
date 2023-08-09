@@ -20,6 +20,55 @@ The project is built using SST and uses native Auth Construct with Google as the
 3. The dashboard also shows a few analytics/stats based on the data.
 <img width="1420" alt="Screenshot 2023-08-09 at 1 00 40 PM" src="https://github.com/swarna1001/fictional-robot/assets/66565400/a1a45a51-73fa-43bd-a5e4-a6130dab1844">
 
+### Folder Structure
+
+```
+-- fictional-robot
+    |-- packages
+        |-- core
+            |-- migrations
+            |-- src
+                |-- schema
+                    |-- schema.ts
+            |-- drizzle.config.json
+            |-- package.json
+            |-- sst-env.d.ts
+            |-- tsconfig.json
+       |-- functions
+           |-- src
+               |-- addInventory.ts
+               |-- auth.ts
+               |-- deleteInventory.ts
+               |-- migration.ts
+               |-- session.ts
+               |-- updateInventory.ts
+               |-- updateUserRole.ts
+           |-- utils
+               |-- db.ts
+           |-- package.json
+           |-- sst-env.d.ts
+           |-- sconfig.json
+       |-- web (A React app created using Vite)
+       |-- stacks
+           |-- MyStack.ts
+       |-- .gitignore
+       |-- README.md
+       |-- package.json
+       |-- pnpm-lock.yaml
+       |-- pnpm-workspace.yaml
+       |-- sst.config.ts
+       |-- tsconfig.json  
+```
+1. It's a mono repo.
+2. packages/functions - backend functions
+3. packages/core - shared business logic (DB schema and migrations file)
+4. packages/web - frontend code. Here, we have a React application created with Vite. It's already wired up to be able to talk to the API.
+5. stacks/ - contains the app's infrastructure as defined as code. Or what is known as Infrastructure as Code (IaC). SST by default uses TypeScript to define your infrastructure.
+6. SST ships with Auth — a modern lightweight authentication library. It is made up of the following pieces:
+   - Auth - a construct that creates the necessary infrastructure like the API routes to handle the authentication flows.
+   - AuthHandler -  Lambda function that can handle authentication flows for various providers. 
+   - Session — a library for issuing and validating authentication sessions in our Lambda function code.
+
 ### Implementation
 1. The application features two tables, Users and Inventory.
 2. CRUD APIs to add, delete and approve inventory and also update user roles.
