@@ -18,8 +18,7 @@ The project is built using SST and uses native Auth Construct with Google as the
 1. The application has two roles, Manager and Assistant. A manager can create, delete and approve inventories created by the assistant.
 2. An assistant can view the information.
 3. The dashboard also shows a few analytics/stats based on the data.
-<img width="1420" src="https://github.com/swarna1001/fictional-robot/assets/66565400/a1a45a51-73fa-43bd-a5e4-a6130dab1844">
-![dashboard](https://github.com/swarna1001/fictional-robot/assets/66565400/a1a45a51-73fa-43bd-a5e4-a6130dab1844)
+<img width="1420" alt="Screenshot 2023-08-09 at 1 00 40 PM" src="https://github.com/swarna1001/fictional-robot/assets/66565400/7117c636-652d-45de-8c34-213765cbab4b">
 
 
 ### Folder Structure
