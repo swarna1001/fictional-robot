@@ -72,7 +72,7 @@ The project is built using SST and uses native Auth Construct with Google as the
 ### Implementation
 1. The application features two tables, Users and Inventory.
 2. CRUD APIs to add, delete and approve inventory and also update user roles.
-3. I started with building the authentication (both FE and BE) followed by building the other APIs and their frontend counterparts.
+3. I started with setting up the PlanetScale database, creating a User table then building the authentication (both FE and BE) followed by building the other APIs and their frontend counterparts.
 
 ### Issues encountered
 1. I have been playing with SST for some time and decided to use its inbuilt solution for Auth. Things turned out to be a little wobbly and there is also a lag between the database update (especially for the user) and the authenticated session being returned. I tried to dig into it and my best guess is that the session is being cached by SST.
