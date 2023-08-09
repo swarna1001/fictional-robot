@@ -1,200 +1,169 @@
-// import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { api } from "../../axios";
+import { TopNavbar } from "../../components/Header";
+import { GetInventoryResponse, UserProfileResponse } from "../../utils/types";
+import { SelectUserRole } from "../../components/SelectUserRole";
+import { AddInventoryModal } from "../../components/AddInventoryModal";
+import {
+  Button,
+  Container,
+  Modal,
+  createStyles,
+  Text,
+  Group,
+  Stack,
+  Title,
+  Flex,
+  Tabs,
+  Badge,
+} from "@mantine/core";
+import { InventoryTable } from "../../components/Table";
+import { StatsRing } from "../../components/Stats";
+import { useDisclosure } from "@mantine/hooks";
 
-// function App() {
-//   const [message, setMessage] = useState("Hi 👋");
+const useStyles = createStyles(() => ({
+  title: {
+    fontSize: "20px",
+    fontWeight: 600,
+  },
+  content: {
+    padding: "24px",
+  },
+}));
 
-//   console.log(
-//     "[LOG] | file: App.tsx:12 | onClick | import.meta.env.VITE_APP_API_URL:",
-//     import.meta.env.VITE_APP_API_URL
-//   );
+function Dashboard() {
+  const { classes } = useStyles();
+  const [modalOpened, { open, close }] = useDisclosure(false);
 
-//   function onClick() {
-//     fetch(import.meta.env.VITE_APP_API_URL)
-//       .then((response) => response.text())
-//       .then(setMessage);
-//   }
+  const { data: userData } = useQuery({
+    queryKey: ["user-profile"],
+    queryFn: () =>
+      api.get<UserProfileResponse>(`/session`).then((res) => res.data),
+  });
 
-//   return (
-//     <div className="App">
-//       <div className="card">
-//         <button onClick={onClick}>
-//           Message is "<i>{message}</i>"
-//         </button>
-//       </div>
-//     </div>
-//   );
-// }
+  console.log("[LOG] | file: Dashboard.tsx:56 | userData:", userData);
 
-// export default App;
+  const { data: inventories } = useQuery({
+    queryKey: ["get-inventories"],
+    queryFn: () =>
+      api.get<GetInventoryResponse>(`inventories`).then((res) => res.data),
+  });
 
-import { useEffect, useState } from "react";
-// import "./App.css";
-
-function App() {
-  // const [message, setMessage] = useState("Hi 👋");
-
-  const [session, setSession] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
-
-  // const [dbResp, setDbRes] = useState("");
-
-  const getSession = async () => {
-    const token = localStorage.getItem("session");
-    if (token) {
-      const user = await getUserInfo(token);
-      if (user) setSession(user);
-    }
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    getSession();
-  }, []);
-
-  useEffect(() => {
-    const search = window.location.search;
-    const params = new URLSearchParams(search);
-    const token = params.get("token");
-    if (token) {
-      console.log("TOKEN: ", token);
-      localStorage.setItem("session", token);
-      window.location.replace(window.location.origin);
-    }
-  }, []);
-
-  const getUserInfo = async (session: any) => {
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_APP_API_URL}/session`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${session}`,
-          },
-        }
-      );
-
-      // const payload: any = { count: 1 };
-
-      // const dbRes = await fetch(`${import.meta.env.VITE_APP_API_URL}/test`, {
-      //   method: "POST",
-      //   headers: {
-      //     Authorization: `Bearer ${session}`,
-      //   },
-      //   body: {
-      //     //@ts-ignore
-      //     payload,
-      //   },
-      // })
-      //   .then((response) => {
-      //     return response.json();
-      //   })
-      //   .then((data) => {
-      //     setDbRes(data);
-      //   });
-
-      // console.log("DB Res : ", dbRes);
-      // console.log("DB Res : ", JSON.stringify(dbRes));
-
-      return response.json();
-    } catch (error) {
-      alert(error);
-    }
-  };
-
-  // const signOut = async () => {
-  //   localStorage.removeItem("session");
-  //   setSession(null);
-  // };
-
-  const updateUser = async () => {
-    const payload = {
-      id: session?.properties?.user[0].id,
-      is_manager: true,
-    };
-
-    const response = await fetch(
-      `${import.meta.env.VITE_APP_API_URL}/update/user/role`,
-      {
-        method: "PUT",
-        headers: {
-          Authorization: `Bearer ${session}`,
-        },
-        body: JSON.stringify(payload),
-      }
-    );
-
-    console.log("[LOG] | file: App.tsx:127 | updateUser | response:", response);
-  };
-
-  // function onClick() {
-  //   fetch(import.meta.env.VITE_APP_API_URL)
-  //     .then((response) => response.text())
-  //     .then(setMessage);
-  // }
-
-  console.log("SESSION - FE : ", session?.properties?.user);
-  console.log("has_identified : ", session?.properties?.user[0].has_identified);
-
-  // console.log("FUCKING YES : ", dbResp);
-
-  if (loading) return <div className="container">Loading...</div>;
+  console.log("[LOG] | file: Dashboard.tsx:74 | inventories:", inventories);
 
   return (
-    <div className="App">
-      <div className="card">
-        <h1>Hello</h1>
-        <div className="container">
-          <h2>SST Auth Example</h2>
-
-          {session ? (
+    <>
+      {userData ? (
+        <>
+          {userData.properties.user[0].has_identified ? (
             <>
-              {session?.properties?.user[0].has_identified ? (
-                <>HAS identified</>
-              ) : (
-                <>
-                  display the modal
-                  <button onClick={updateUser}> Update</button>
-                </>
-              )}
+              {/* {userData.properties.user[0].is_manager ? ( */}
+              <>
+                <TopNavbar
+                  username={userData.properties.user[0].name}
+                  managerView={userData.properties.user[0].is_manager}
+                />
+              </>
+
+              <Container size={"xl"}>
+                {/* <Demo /> */}
+                <StatsRing
+                  inventories={inventories?.approvedInventories! || []}
+                />
+
+                <Group position="right" mt={48}>
+                  <Button color="dark" onClick={open}>
+                    <Text fw={600} fz={"md"}>
+                      Add Inventory
+                    </Text>
+                  </Button>
+                </Group>
+
+                <Tabs color="dark" defaultValue="inventory-table">
+                  <Tabs.List>
+                    <Tabs.Tab value="inventory-table">Inventories</Tabs.Tab>
+                    <Tabs.Tab
+                      rightSection={
+                        <Badge
+                          w={16}
+                          h={16}
+                          sx={{ pointerEvents: "none" }}
+                          variant="filled"
+                          size="xs"
+                          p={0}
+                          color="green"
+                        >
+                          {inventories?.unapprovedInventories.length}
+                        </Badge>
+                      }
+                      value="pending-inventories"
+                    >
+                      Pending Inventories
+                    </Tabs.Tab>
+                  </Tabs.List>
+
+                  <Tabs.Panel value="inventory-table" pt="xs">
+                    <InventoryTable
+                      inventories={inventories?.approvedInventories || []}
+                      managerView={userData.properties.user[0].is_manager}
+                    />
+                  </Tabs.Panel>
+
+                  <Tabs.Panel value="pending-inventories" pt="xs">
+                    <InventoryTable
+                      inventories={inventories?.unapprovedInventories || []}
+                      managerView={userData.properties.user[0].is_manager}
+                      isPendingTab={true}
+                    />
+                  </Tabs.Panel>
+                </Tabs>
+
+                <Modal
+                  size="xl"
+                  opened={modalOpened}
+                  onClose={close}
+                  title="Add Inventory"
+                  centered
+                  padding={"xl"}
+                  radius="16px"
+                  classNames={classes}
+                >
+                  <AddInventoryModal />
+                </Modal>
+              </Container>
             </>
           ) : (
-            <>
-              <a
-                href={`${
-                  import.meta.env.VITE_APP_API_URL
-                }/auth/google/authorize`}
-                rel="noreferrer"
-              >
-                <button>Sign in with Google</button>
-              </a>
-            </>
+            <SelectUserRole id={userData.properties.user[0].id || "9"} />
           )}
+        </>
+      ) : (
+        <Container mt={128}>
+          <Stack>
+            <Title order={1} align="center">
+              Welcome to InventoryHub.
+            </Title>
 
-          {/* {session ? (
-            <div className="profile">
-              <p>Welcome </p>
+            <Title order={2} align="center">
+              One step solution to manage and track Inventories
+            </Title>
 
-              <h1>Something worked</h1>
-
-              <button onClick={signOut}>Sign out</button>
-            </div>
-          ) : (
-            <div>
+            <Flex justify="center" align="center" mt={24}>
               <a
                 href={`${
                   import.meta.env.VITE_APP_API_URL
                 }/auth/google/authorize`}
                 rel="noreferrer"
               >
-                <button>Sign in with Google</button>
+                <Button color="dark" size="lg">
+                  Sign in with Google
+                </Button>
               </a>
-            </div>
-          )} */}
-        </div>
-      </div>
-    </div>
+            </Flex>
+          </Stack>
+        </Container>
+      )}
+    </>
   );
 }
 
-export default App;
+export default Dashboard;

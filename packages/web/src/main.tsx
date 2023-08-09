@@ -1,10 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { MantineProvider } from "@mantine/core";
 import { SnackbarProvider } from "notistack";
 import App from "./App.tsx";
-import UserState from "./context/user/UserState.tsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -19,9 +19,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <MantineProvider withGlobalStyles withNormalizeCSS>
       <React.StrictMode>
         <SnackbarProvider>
-          <UserState>
-            <App />
-          </UserState>
+          <App />
+          <ReactQueryDevtools initialIsOpen={false} />
         </SnackbarProvider>
       </React.StrictMode>
     </MantineProvider>

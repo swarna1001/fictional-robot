@@ -21,7 +21,12 @@ export function API({ stack }: StackContext) {
     routes: {
       "GET /session": "packages/functions/src/session.handler",
       "GET /migrate": "packages/functions/src/migration.handler",
-      "PUT /update/user/role": "packages/functions/src/updateUserRole.handler",
+      "GET /inventories": "packages/functions/src/getInventories.handler",
+      "POST /update-user-role": "packages/functions/src/updateUserRole.handler",
+      "POST /add-inventory": "packages/functions/src/addInventory.handler",
+      "POST /inventory/{id}": "packages/functions/src/deleteInventory.handler",
+      "POST /update-inventory/{id}":
+        "packages/functions/src/updateInventory.handler",
     },
   });
 

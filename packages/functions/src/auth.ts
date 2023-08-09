@@ -8,9 +8,7 @@ import { db } from "utils/db";
 const GOOGLE_CLIENT_ID = Config.GOOGLE_CLIENT_ID;
 declare module "sst/node/auth" {
   export interface SessionTypes {
-    user: {
-      user: any;
-    };
+    user: any;
   }
 }
 

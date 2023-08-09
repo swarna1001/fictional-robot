@@ -9,7 +9,11 @@ export const handler = ApiHandler(async () => {
 
   // Check user is authenticated
   if (session.type !== "user") {
-    throw new Error("Not authenticated");
+    // throw new Error("Not authenticated");
+    return {
+      statusCode: 400,
+      body: "No session",
+    };
   }
 
   return {

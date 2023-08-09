@@ -25,10 +25,17 @@ async function checkAndCreateUser(user: any) {
 import { APIGatewayProxyHandlerV2 } from "aws-lambda";
 
 export const handler: APIGatewayProxyHandlerV2 = async (event) => {
+  // console.log(
+  //   "[LOG] | file: updateUserRole.ts:29 | consthandler:APIGatewayProxyHandlerV2= | event:",
+  //   event
+  // );
+
   //@ts-ignore
+  console.log("EVENT BODY :", event.body);
 
   //   console.log("REQUEST: ", JSON.parse(event.body));
 
+  //@ts-ignore
   const { is_manager, id } = JSON.parse(event.body);
 
   console.log(
@@ -59,6 +66,7 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
 
   return {
     statusCode: 200,
+    body: "User role updated",
     // body: JSON.stringify(note),
   };
 };

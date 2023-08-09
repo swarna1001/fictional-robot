@@ -14,6 +14,7 @@
     "@mantine/core": "^6.0.18",
     "@mantine/hooks": "^6.0.18",
     "@tanstack/react-query": "^4.32.6",
+    "@tanstack/react-query-devtools": "^4.32.6",
     "axios": "^1.4.0",
     "csstype": "^3.1.2",
     "notistack": "^3.0.1",
