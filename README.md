@@ -1,7 +1,7 @@
 ## Inventory-Hub - One-step solution to manage and track Inventories
 
 ### Tech Stack
-1. SST (Serverless Stack) - A framework that makes it easy to build modern full-stack applications on AWS.
+1. SST (Serverless Stack)[https://sst.dev/] - A framework that makes it easy to build modern full-stack applications on AWS.
 2. PlanetScale - A MySQL-compatible serverless database.
 3. Drizzle ORM - A TypeScript ORM for SQL databases.
 4. React.js
