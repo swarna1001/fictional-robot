@@ -1,6 +1,6 @@
 import { APIGatewayProxyHandlerV2 } from "aws-lambda";
 import { db } from "utils/db";
-import { inventory, users } from "@@@app/core/schema/schema";
+import { inventory } from "@@@app/core/schema/schema";
 import { eq } from "drizzle-orm";
 
 export const handler: APIGatewayProxyHandlerV2 = async (event) => {

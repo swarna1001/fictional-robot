@@ -1,4 +1,3 @@
-// import { users } from "@probable-invention/core/schema/schema";
 import { users } from "@@@app/core/schema/schema";
 import { eq } from "drizzle-orm";
 import { AuthHandler, GoogleAdapter, Session } from "sst/node/auth";
@@ -46,8 +45,6 @@ export const handler = AuthHandler({
         };
 
         const user = await checkAndCreateUser(newUser);
-        console.log("USER : ", user);
-
         return Session.cookie({
           redirect: process.env.IS_LOCAL
             ? "http://localhost:5173/"
@@ -57,11 +54,6 @@ export const handler = AuthHandler({
             user: user,
           },
         });
-
-        // return {
-        //   statusCode: 200,
-        //   body: JSON.stringify(tokenset.claims(), null, 4),
-        // };
       },
     }),
   },

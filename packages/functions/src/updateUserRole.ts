@@ -1,40 +1,10 @@
 import { users } from "@@@app/core/schema/schema";
 import { eq } from "drizzle-orm";
-import { ApiHandler } from "sst/node/api";
-import { AuthHandler, GoogleAdapter, Session, useSession } from "sst/node/auth";
-import { Config } from "sst/node/config";
 import { db } from "utils/db";
-
-async function checkAndCreateUser(user: any) {
-  const existingUser = await db
-    .select()
-    .from(users)
-    .where(eq(users.google_id, user.google_id));
-
-  if (existingUser.length === 0) {
-    await db.insert(users).values(user);
-    const createdUser = await db
-      .select()
-      .from(users)
-      .where(eq(users.google_id, user.google_id));
-    return createdUser;
-  }
-  return existingUser;
-}
 
 import { APIGatewayProxyHandlerV2 } from "aws-lambda";
 
 export const handler: APIGatewayProxyHandlerV2 = async (event) => {
-  // console.log(
-  //   "[LOG] | file: updateUserRole.ts:29 | consthandler:APIGatewayProxyHandlerV2= | event:",
-  //   event
-  // );
-
-  //@ts-ignore
-  console.log("EVENT BODY :", event.body);
-
-  //   console.log("REQUEST: ", JSON.parse(event.body));
-
   //@ts-ignore
   const { is_manager, id } = JSON.parse(event.body);
 
@@ -48,25 +18,8 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
     .set({ is_manager: is_manager, has_identified: true })
     .where(eq(users.id, id));
 
-  console.log(
-    "[LOG] | file: updateUserRole.ts:44 | consthandler:APIGatewayProxyHandlerV2= | resp:",
-    resp
-  );
-
-  //   if (!note) {
-  //     return {
-  //       statusCode: 404,
-  //       body: JSON.stringify({ error: true }),
-  //     };
-  //   }
-
-  //   const data = JSON.parse(event.body);
-
-  //   note.content = data.content;
-
   return {
     statusCode: 200,
     body: "User role updated",
-    // body: JSON.stringify(note),
   };
 };
