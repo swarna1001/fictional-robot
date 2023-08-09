@@ -3,10 +3,10 @@
 ### Tech Stack
 1. SST [Serverless Stack](https://sst.dev/) - A framework that makes it easy to build modern full-stack applications on AWS.
 2. [PlanetScale](https://planetscale.com/) - A MySQL-compatible serverless database.
-3. Drizzle ORM - A TypeScript ORM for SQL databases.
+3. [Drizzle ORM](https://orm.drizzle.team/) - A TypeScript ORM for SQL databases.
 4. React.js
-5. Mantine - A component library for React
-6. React-Query - For data fetching and state management
+5. [Mantine](https://mantine.dev/) - A component library for React
+6. [React-Query](https://tanstack.com/query/latest/) - For data fetching and state management
 7. Node.js
 8. TypeScript
 
