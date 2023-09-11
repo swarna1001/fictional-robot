@@ -17,6 +17,9 @@ export const handler = ApiHandler(async (event) => {
     inventories
   );
 
+  console.log("Well Hello.");
+  console.log("I am testing seed.");
+
   const approvedInventories: any = [];
   const unapprovedInventories: any = [];
 
