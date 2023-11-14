@@ -1,4 +1,4 @@
-## Inventory-Hub - One-step solution to manage and track Inventories
+## Inventory-Hub - One-step solution to manage and track Inventories ----
 
 ### Tech Stack
 1. SST [Serverless Stack](https://sst.dev/) - A framework that makes it easy to build modern full-stack applications on AWS.
